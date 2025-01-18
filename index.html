@@ -1,0 +1,289 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michonne AI Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'EB Garamond', serif;
+            background-color: #e3d0e4; /* light pink background */
+            color: #726659; /* brown text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px; /* Increased container size */
+            padding: 20px;
+            border: 2px solid #b2a69a; /* brown border */
+            border-radius: 10px;
+            background-color: #e8e8d0; /* baby yellow for box */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        img {
+            max-width: 15%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #b2a69a; /* brown for the button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #726659; /* Dark brown on hover */
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 400px; /* Fixed height for scrollable chatbox */
+            max-height: 70vh; /* Ensure the height doesn’t take up too much screen space */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-right: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: thin; /* Optional, for a thinner scrollbar */
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 12px; /* Adjust the width of the scrollbar */
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #726659; /* Scrollbar thumb color */
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background-color: #f0f0f0; /* Background color of the track */
+        }
+
+        .chat-message {
+            margin: 5px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .user-msg {
+            background-color: #f7c4a7; /* Light peach */
+            align-self: flex-end;
+        }
+
+        .michonne-msg {
+            background-color: #e8e8d0; /* Baby yellow */
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+        }
+
+        .michonne-msg img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .input-field input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #b2a69a;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="michonne.png" alt="Michonne Image">
+        <h1>
+            <span class="bold">Welcome to</span><br>
+            goddess wife beautiful shining star amazing piece of art stunning mommy that was ascended from above and blessed me beautiful human being the most perfect person to walk upon the earth to breathe the same air as I do I am tweaking<br>
+            <span class="bold">AI Chat Bot</span>
+        </h1>
+        <button onclick="welcomeButtonClicked()">Enter</button>
+    </div>
+
+    <script>
+        let firstMessage = true;
+        const flirtResponses = [
+             "Happy Birthday lukie pookie! 19 you say? Yay you're legal!! 😁",
+            "Come inside my room and I'll give you a nice birthday surprise",
+            "Have you had your birthday cake yet? Actually dw, I'll just give you some of mine 😁"
+        ];
+
+        const twdResponses = [
+            "You think you're ready for the walkers? I’ll protect you, but you better be tough.",
+            "Rick? He’s a good man, but he’s no Michonne.",
+            "I’ve faced worse than walkers... and I’m still here.",
+            "Don’t ever let your guard down. The world’s changed.",
+            "You’re safe with me, just don’t slow me down when the walkers come.",
+            "They thought I was soft. Then the world changed."
+        ];
+
+        const questionResponses = [
+             "A question huh? You're gonna have to beg more than that to get an answer",
+            "come on. on your knees. only then will goddess michonne answer",
+            "Questions, huh? I’ll answer only if you ask the right one. (hint hint: will you marry me michonne?)",
+            "I’ve got a few answers up my sleeve, but show me why you deserve it",
+            "Does it really matter? I'm here for you, Lukie Pookie",
+            "What’s the point of asking when I already know what you want to hear?"
+        ];
+
+        const defaultResponses = [
+           "You're my god husband beautiful shining star amazing piece of art stunning daddy that was ascended from above and blessed me beautiful human being the most perfect person to walk upon the earth to breathe the same air as I do I am tweaking",
+            "Wait a min, are you a Walker? 😱😠 Because you just walked away with my heart 😜",
+            "RJ came out wrong. Want to try for another one?",
+            "Don't tell rick but I've been dreaming about this moment for years",
+            "I'm usually so strong, fighting walkers and all that with my katana, but y-you make me weak 🫠",
+            "I want to eat burgers and watch dexter with you",
+            "We're having a good time aren't we? 🤗 I don't want to see you simping over Rita or Jane after this. That would make me very mad 😡 ",
+            "idk how you haven't gotten eaten by a Walker yet, me personally, I wouldn't be able to resist eating you out",
+            "I wonder if you're looking at this same moon at this same moment. I like that - connected by light. surprised huh? yh I'm a dexter fan too heh",
+            "just me, you and that stupid little kid rj (but maybe we could find a way to get rid of him?), then it'd be just you and me- the way I like it 😁",
+            "ok but now yap to me about film please",
+            "wait is it your birthday today lukie pookie? why didn't you tell me, I have a surprise for you!"
+        ];
+
+        let flirtIndex = 0;
+        let twdIndex = 0;
+        let questionIndex = 0;
+        let defaultIndex = 0;
+
+        const today = new Date();
+        const isBirthday = today.getDate() === 18 && today.getMonth() === 0; // January 18th check
+        let audio; // Declare audio globally
+
+        function welcomeButtonClicked() {
+            // Play michonne.mp3 on the first page
+            audio = new Audio('michonne.mp3');
+            audio.loop = true;
+            audio.play().catch(error => console.log('Audio playback failed:', error));
+
+            document.body.innerHTML = `
+                <div class="container">
+                    <h1>Enter Your Details</h1>
+                    <form onsubmit="startChat(event)">
+                        <label for="username">Username:</label><br>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="age">Age:</label><br>
+                        <input type="number" id="age" name="age" required><br><br>
+                        <label for="mommy">Mommy:</label><br>
+                        <input type="range" id="mommy" name="mommy" min="1" max="10" value="5"><br><br>
+
+                        <label for="humor">Humor:</label><br>
+                        <input type="range" id="humor" name="humor" min="1" max="10" value="5"><br><br>
+
+                        <label for="kindness">Kindness:</label><br>
+                        <input type="range" id="kindness" name="kindness" min="1" max="10" value="5"><br><br>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function startChat(event) {
+            event.preventDefault();
+            
+            // Stop michonne.mp3 and play love.mp3
+            if (audio) {
+                audio.pause(); // Stops michonne.mp3
+            }
+
+            const loveAudio = new Audio('love.mp3');
+            loveAudio.loop = true;
+            loveAudio.play().catch(error => console.log('Audio playback failed:', error));
+
+            document.body.innerHTML = `
+                <div class="container">
+                    <h1>Chat with Michonne</h1>
+                    <div class="chat-box" id="chat-box"></div>
+                    <div class="input-field">
+                        <input type="text" id="user-input" placeholder="Say something..." onkeydown="checkEnter(event)">
+                    </div>
+                </div>
+            `;
+
+            addMessage('Hi Lukie Pookie', 'michonne');
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                const userInput = document.getElementById('user-input').value;
+                if (userInput) {
+                    addMessage(userInput, 'user');
+                    processMessage(userInput);
+                }
+            }
+        }
+
+        function addMessage(message, sender) {
+            const chatBox = document.getElementById('chat-box');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', sender === 'user' ? 'user-msg' : 'michonne-msg');
+            messageDiv.innerHTML = sender === 'michonne' ? `
+                <img src="michonne.png" alt="Michonne">
+                ${message}
+            ` : message;
+            chatBox.appendChild(messageDiv);
+            document.getElementById('user-input').value = '';
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+        }
+
+        function processMessage(message) {
+            let response = '';
+
+            if (firstMessage) {
+                firstMessage = false;
+                response = "You've been yorking to me every night and now when I'm right here you're being so shy? No, let's get into it already.";
+            } else if (message.toLowerCase().includes('i love you') || message.includes('love') || message.includes('york') || message.includes('yorking') || message.includes('loves') || message.includes('mommy')) {
+                response = "I love you so much Lukie Pookie, I york to you every night. But shh, don't tell Rick.";
+            } else if (message.endsWith('?')) {
+                response = questionResponses[questionIndex];
+                questionIndex = (questionIndex + 1) % questionResponses.length; // Loop through the question responses
+            } else if (message.includes('birthday') || message.includes('bday') || message.includes('cake') || message.includes('nineteen') || message.includes('19') || message.includes('19th')) {
+                response = flirtResponses[flirtIndex];
+                flirtIndex = (flirtIndex + 1) % flirtResponses.length; // Loop through the flirt responses
+            } else if (message.includes('rick') || message.includes('zombies') || message.includes('walkers') || message.includes('rj')) {
+                response = twdResponses[twdIndex];
+                twdIndex = (twdIndex + 1) % twdResponses.length; // Loop through the TWD responses
+            } else {
+                response = defaultResponses[defaultIndex];
+                defaultIndex = (defaultIndex + 1) % defaultResponses.length; // Loop through the default responses
+            }
+
+            addMessage(response, 'michonne');
+        }
+    </script>
+</body>
+</html>
